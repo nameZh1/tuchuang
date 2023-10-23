@@ -1,0 +1,17 @@
+{
+    "name": "tuchuang",
+    "version": "1.0.0",
+    "description": "tuchuang",
+    "start": "index.html",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "parcel index.html",
+        "build": "parcel build index.html"
+    },
+    "author": "zh1",
+    "license": "ISC",
+    "devDependencies": {
+        "cssnano": "^6.0.1",
+        "postcss": "^8.4.31"
+    }
+}
