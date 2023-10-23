@@ -105,30 +105,53 @@ flex-basis：定义了一个项目的默认大小。通常是一个长度值，�
     flex-shrink: 0;
     padding: 10px;
     flex-direction:row;
-    gap: 10px;
     align-content: flex-start;
     overflow: hidden;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     border-radius: 10px;
     border: 1px solid #989daaa2;
     background: #212f4ebe;
 }
 
 .imgContainer-content-mid-imgShow-item {
-    min-width: 100px;
-    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 140px;
+    min-height: 140px;
     cursor: pointer;
     flex-shrink: 0;
     transition: all .5s;
 }
 
+
 .imgContainer-content-mid-imgShow-item:hover {
-    border: 1px solid #28acf8c7;
+    /* border: 1px solid #28acf8c7; */
     box-shadow: 0 0 3px 3px #28acf8c7;
-    min-width: 120px;
-    /* 设置最小宽度 */
-    min-height: 120px;
-    /* 设置最小高度 */
-    flex-shrink: 0;
+}
+.imgContainer-content-mid-imgShow-item:hover .imgContainer-content-mid-imgShow-itemImg {
+    min-width: 100px;
+    min-height: 100px;
+}
+.imgContainer-content-mid-imgShow-item:hover .imgContainer-content-mid-imgShow-itemTitle {
+    color: #ffffffce;
+    background: #2ba8f0ce;
+}
+.imgContainer-content-mid-imgShow-itemTitle {
+    margin-top: 5px;
+    background: #5d5d6194;
+    padding: 0px 15px;
+    border-radius: 5px;
+    color: #ffffff71;
+    font-size: 14px;
+    transition: all .5s;
+}
+
+
+.imgContainer-content-mid-imgShow-itemImg {
+    min-width: 80px;
+    min-height: 80px;
+    transition: all .5s;
 }

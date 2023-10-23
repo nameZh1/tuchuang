@@ -1,4 +1,4 @@
-const token = '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';//'YOUR_GITHUB_ACCESS_TOKEN';token
+const token = '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';//'YOUR_GITHUB_ACCESS_TOKEN';token
 const repoOwner = 'nameZh1';//'YOUR_GITHUB_USERNAME';账户名
 const repoName = 'img';//'YOUR_REPOSITORY_NAME';仓库名
 // 创建全局变量(当前所在路径)
@@ -39,6 +39,10 @@ function add(pathDir) {
     // 检查用户是否选择了文件
     if (imageInput.files.length === 0) {
         console.log('请先选择要上传的图像文件'); // 如果没有选择文件，显示提示并终止操作
+        return;
+    }
+    if(pathDir == '/') {
+        console.log('请先选择文件夹');
         return;
     }
 
@@ -248,6 +252,7 @@ function getFolde(path) {
     fetch(apiUrl, { headers })
         .then(response => response.json())
         .then(data => {
+            console.log(data, 5555555)
             data.forEach(subItem => {
                 if (subItem.type == "dir") {
                     let element = document.createElement('div');
@@ -295,15 +300,16 @@ function getImg(path) {
         .then(data => {
             data.forEach(item => {
                 if (item.type == 'file') {
+                    const eleContainer = document.createElement('div');
+                    eleContainer.className = 'imgContainer-content-mid-imgShow-item';
                     const element = document.createElement('img');
                     element.width = "100%";
                     element.height = "100%";
                     element.src = item.download_url; // 设置图片路径
                     element.setAttribute('download_url', item.download_url);
                     element.setAttribute('name', item.name);
+                    element.className = 'imgContainer-content-mid-imgShow-itemImg';
                     element.alt = '点击下载图片';
-                    element.className = 'imgContainer-content-mid-imgShow-item';
-
                     element.addEventListener('click', function (index) {
                         // 这里可以定义点击事件的处理逻辑
                         console.log(index, '图片被点击了');
@@ -314,7 +320,12 @@ function getImg(path) {
                         downloadLink.download = index.target.getAttribute('name');; // 设置下载的文件名
                         downloadLink.click();
                     });
-                    fragment.appendChild(element);
+                    const nameTag = document.createElement('span');
+                    nameTag.className = 'imgContainer-content-mid-imgShow-itemTitle';
+                    nameTag.textContent = item.name;
+                    eleContainer.appendChild(element);
+                    eleContainer.appendChild(nameTag);
+                    fragment.appendChild(eleContainer);
                 }
             });
             imgShowEle.appendChild(fragment);
