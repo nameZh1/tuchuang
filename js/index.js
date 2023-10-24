@@ -1,4 +1,7 @@
-const token = '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';//'YOUR_GITHUB_ACCESS_TOKEN';token
+// 获取 GitHub Actions 中设置的 Secret Token
+const token = window.GITHUB_TOKEN;
+console.log("🚀 ~ file: index.js:3 ~ token:", token)
+
 const repoOwner = 'nameZh1';//'YOUR_GITHUB_USERNAME';账户名
 const repoName = 'img';//'YOUR_REPOSITORY_NAME';仓库名
 // 创建全局变量(当前所在路径)
@@ -252,7 +255,6 @@ function getFolde(path) {
     fetch(apiUrl, { headers })
         .then(response => response.json())
         .then(data => {
-            console.log(data, 5555555)
             data.forEach(subItem => {
                 if (subItem.type == "dir") {
                     let element = document.createElement('div');
@@ -266,6 +268,8 @@ function getFolde(path) {
                         curryPathEle.textContent = path;
                         getImg(path);
                     });
+                    treeFragment.appendChild(element);
+                    treeFragment.appendChild(element);
                     treeFragment.appendChild(element);
                 }
             })

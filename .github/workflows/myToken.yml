@@ -1,0 +1,26 @@
+name: myToken
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set Frontend Environment Variable
+      run: |
+        echo "window.GITHUB_TOKEN = '${{ secrets.TUCHUANGTOKEN }}';" > $GITHUB_WORKSPACE/frontend-env.js
+      env:
+        token: ${{ secrets.TUCHUANGTOKEN }}
+
+    - name: Build and Deploy
+      run: |
+        # Build your frontend project here
+        cp $GITHUB_WORKSPACE/frontend-env.js your_frontend_folder/
+

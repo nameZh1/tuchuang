@@ -107,7 +107,7 @@ flex-basis：定义了一个项目的默认大小。通常是一个长度值，�
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
-    flex-shrink: 0;
+    /* flex-shrink: 0; */
     padding: 10px;
     flex-direction:row;
     align-content: flex-start;
@@ -118,6 +118,8 @@ flex-basis：定义了一个项目的默认大小。通常是一个长度值，�
     border: 1px solid #989daaa2;
     background: #212f4ebe;
     transition: all .5s;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
 .imgContainer-content-mid-imgShow:hover {
