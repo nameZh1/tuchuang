@@ -1,7 +1,9 @@
 // 获取 GitHub Actions 中设置的 Secret Token
 // const token = window.GITHUB_TOKEN;
-const test = process.env.token;
-console.log("🚀 ~ file: index.js:3 ~ token:", token)
+// const test = process.env.token;
+const tokenS = 'Z2l0aHViX3BhdF8xMUFLN1czRUkwVkZ1eGR6eXh2eDRNXzkzUFZ0UDBwTXFlUktqM1ozNm00Qk9xRHFwd2c3RVNtbHhjVmRXQnB6UGI2WVNVM1ZRNXBzQmg2TjN0';
+// const encoded = btoa(token);// 加密
+const token = atob(tokenS);// 解码
 
 const repoOwner = 'nameZh1';//'YOUR_GITHUB_USERNAME';账户名
 const repoName = 'img';//'YOUR_REPOSITORY_NAME';仓库名
