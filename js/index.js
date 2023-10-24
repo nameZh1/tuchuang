@@ -1,4 +1,4 @@
-const token = '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';//'YOUR_GITHUB_ACCESS_TOKEN';token
+const token = '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';//'YOUR_GITHUB_ACCESS_TOKEN';token
 const repoOwner = 'nameZh1';//'YOUR_GITHUB_USERNAME';账户名
 const repoName = 'img';//'YOUR_REPOSITORY_NAME';仓库名
 // 创建全局变量(当前所在路径)

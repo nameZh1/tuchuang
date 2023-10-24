@@ -59,6 +59,11 @@ flex-basis：定义了一个项目的默认大小。通常是一个长度值，�
     border: 1px solid #989daaa2;
     background: #212f4ebe;
     text-align: center;
+    transition: all .5s;
+}
+
+.imgContainer-content-left:hover {
+    background: #152b55;
 }
 
 .imgContainer-content-left-foldeNode {
@@ -112,6 +117,11 @@ flex-basis：定义了一个项目的默认大小。通常是一个长度值，�
     border-radius: 10px;
     border: 1px solid #989daaa2;
     background: #212f4ebe;
+    transition: all .5s;
+}
+
+.imgContainer-content-mid-imgShow:hover {
+    background: #152b55;
 }
 
 .imgContainer-content-mid-imgShow-item {
