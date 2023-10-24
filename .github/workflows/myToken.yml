@@ -16,6 +16,7 @@ jobs:
     - name: Set Frontend Environment Variable
       run: |
         echo "window.GITHUB_TOKEN = '${{ secrets.TUCHUANGTOKEN }}';" > $GITHUB_WORKSPACE/js/frontend-env.js
+        echo "获取到的token ${{ secrets.TUCHUANGTOKEN }}"
       env:
         token: ${{ secrets.TUCHUANGTOKEN }}
 
