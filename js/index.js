@@ -1,5 +1,6 @@
 // 获取 GitHub Actions 中设置的 Secret Token
 const token = window.GITHUB_TOKEN;
+const test = process.env.token;
 console.log("🚀 ~ file: index.js:3 ~ token:", token)
 
 const repoOwner = 'nameZh1';//'YOUR_GITHUB_USERNAME';账户名
