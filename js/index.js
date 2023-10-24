@@ -1,9 +1,10 @@
 // 获取 GitHub Actions 中设置的 Secret Token
 // const token = window.GITHUB_TOKEN;
 // const test = process.env.token;
-const tokenS = 'Z2l0aHViX3BhdF8xMUFLN1czRUkwVkZ1eGR6eXh2eDRNXzkzUFZ0UDBwTXFlUktqM1ozNm00Qk9xRHFwd2c3RVNtbHhjVmRXQnB6UGI2WVNVM1ZRNXBzQmg2TjN0';
+// const tokenS = 'Z2l0aHViX3BhdF8xMUFLN1czRUkwVkZ1eGR6eXh2eDRNXzkzUFZ0UDBwTXFlUktqM1ozNm00Qk9xRHFwd2c3RVNtbHhjVmRXQnB6UGI2WVNVM1ZRNXBzQmg2TjN0';
 // const encoded = btoa(token);// 加密
-const token = atob(tokenS);// 解码
+// const token = atob(tokenS);// 解码
+const token = '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'
 
 const repoOwner = 'nameZh1';//'YOUR_GITHUB_USERNAME';账户名
 const repoName = 'img';//'YOUR_REPOSITORY_NAME';仓库名
@@ -148,6 +149,30 @@ async function del(filePath) {
     } else {
         console.log('SHA不存在')
     }
+}
+
+async function delBySha(filePath, sha) {
+    console.log(filePath, sha, 'aaaaa')
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+        const headers = {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json',
+        };
+
+        const response = await fetch(apiUrl, {
+            method: 'DELETE',
+            headers,
+            body: JSON.stringify({
+                message: 'Delete file',
+                sha: sha.sha, // 提供 SHA
+            }),
+        });
+
+        if (response.ok) {
+            console.log('文件删除成功');
+        } else {
+            console.error('文件删除失败');
+        }
 }
 
 
@@ -307,9 +332,24 @@ function getImg(path) {
         .then(data => {
             data.forEach(item => {
                 if (item.type == 'file') {
+                    // 父容器
                     const eleContainer = document.createElement('div');
-                    eleContainer.className = 'imgContainer-content-mid-imgShow-item';
+                    // 图片
                     const element = document.createElement('img');
+                    // 文本标签
+                    const nameTag = document.createElement('span');
+                    // 关闭按钮
+                    const quitBt = document.createElement('div');
+                    quitBt.textContent = '×';
+                    quitBt.setAttribute('path', item.path);
+                    quitBt.setAttribute('sha', item.sha);
+                    quitBt.addEventListener('click', function (index) {
+                        // 这里可以定义点击事件的处理逻辑
+                        console.log(index, '图片被shanchu');
+                        del(index.target.getAttribute('path'));
+                        // delBySha(index.target.getAttribute('path'), index.target.getAttribute('sha'));
+                    });
+                    eleContainer.className = 'imgContainer-content-mid-imgShow-item';
                     element.width = "100%";
                     element.height = "100%";
                     element.src = item.download_url; // 设置图片路径
@@ -327,11 +367,12 @@ function getImg(path) {
                         downloadLink.download = index.target.getAttribute('name');; // 设置下载的文件名
                         downloadLink.click();
                     });
-                    const nameTag = document.createElement('span');
                     nameTag.className = 'imgContainer-content-mid-imgShow-itemTitle';
                     nameTag.textContent = item.name;
+                    quitBt.className = 'imgContainer-content-mid-imgShow-itemQuit';
                     eleContainer.appendChild(element);
                     eleContainer.appendChild(nameTag);
+                    eleContainer.appendChild(quitBt);
                     fragment.appendChild(eleContainer);
                 }
             });

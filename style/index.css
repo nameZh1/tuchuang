@@ -136,6 +136,7 @@ flex-basis：定义了一个项目的默认大小。通常是一个长度值，�
     cursor: pointer;
     flex-shrink: 0;
     transition: all .5s;
+    position: relative;
 }
 
 
@@ -151,6 +152,11 @@ flex-basis：定义了一个项目的默认大小。通常是一个长度值，�
     color: #ffffffce;
     background: #2ba8f0ce;
 }
+.imgContainer-content-mid-imgShow-item:hover .imgContainer-content-mid-imgShow-itemQuit {
+    opacity: 0.8;
+    width: 20px;
+    height: 20px;
+}
 .imgContainer-content-mid-imgShow-itemTitle {
     margin-top: 5px;
     background: #5d5d6194;
@@ -160,10 +166,28 @@ flex-basis：定义了一个项目的默认大小。通常是一个长度值，�
     font-size: 14px;
     transition: all .5s;
 }
-
-
 .imgContainer-content-mid-imgShow-itemImg {
     min-width: 80px;
     min-height: 80px;
     transition: all .5s;
+}
+.imgContainer-content-mid-imgShow-itemQuit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(-20%,20%);
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffffaf;
+    background-color: rgba(104, 104, 104, 0.836);
+    opacity: 0;
+    transition: all .5s;
+}
+.imgContainer-content-mid-imgShow-itemQuit:hover {
+    color: #fff;
+    background-color: rgba(255, 53, 53, 0.801);
 }
