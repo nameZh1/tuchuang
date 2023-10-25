@@ -4,22 +4,8 @@
 // const tokenS = 'Z2l0aHViX3BhdF8xMUFLN1czRUkwVkZ1eGR6eXh2eDRNXzkzUFZ0UDBwTXFlUktqM1ozNm00Qk9xRHFwd2c3RVNtbHhjVmRXQnB6UGI2WVNVM1ZRNXBzQmg2TjN0';
 // const encoded = btoa(token);// 加密
 // const token = atob(tokenS);// 解码
-var url = "config.json"
-// 申明一个XMLHttpRequest
-var request = new XMLHttpRequest();
-// 设置请求方法与路径
-request.open("get", url);
-// 不发送数据到服务器
-request.send(null);
-//XHR对象获取到返回信息后执行
-request.onload = function () {
-    // 解析获取到的数据
-    var data = JSON.parse(request.responseText, 'aaa');
-    console.log(data)
- 
-}
 
-// const token = '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'
+const token = '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'
 
 const repoOwner = 'nameZh1';//'YOUR_GITHUB_USERNAME';账户名
 const repoName = 'img';//'YOUR_REPOSITORY_NAME';仓库名
@@ -29,6 +15,7 @@ const curryPathEle = document.getElementById('curryPath');
 const imageInput = document.getElementById('imageInput'); // 获取图像文件上传输入元素
 const treeShowEle = document.getElementById('treeShow');
 const imgShowEle = document.getElementById('imgShow');
+const bodyEle = document.getElementsByTagName('body');
 
 function go(index) {
     // add('img/icon');
@@ -60,11 +47,12 @@ document.getElementById('uploadButton').addEventListener('click', () => {
 function add(pathDir) {
     // 检查用户是否选择了文件
     if (imageInput.files.length === 0) {
-        console.log('请先选择要上传的图像文件'); // 如果没有选择文件，显示提示并终止操作
+        // 如果没有选择文件，显示提示并终止操作
+        popShow('请先选择要上传的图像文件');
         return;
     }
     if (pathDir == '/') {
-        console.log('请先选择文件夹');
+        popShow('请先选择文件夹');
         return;
     }
 
@@ -91,15 +79,23 @@ function add(pathDir) {
                 branch: 'master', // 分支名称，通常为 'main' 或 'master'
             }),
         })
-            .then(response => response.json()) // 解析响应的 JSON 数据
+            .then(res => {
+                console.log(res, 'sss')
+                if (res.ok) {
+                    popShow('上传成功');
+                    return res.json()
+                }
+                if (res.status == 422) {
+                    popShow('上传失败,命名重复');
+                    return false;
+                }
+
+            }) // 解析响应的 JSON 数据
             .then(data => {
-                const imageUrl = data.content.download_url; // 提取图像的下载链接
-                // 显示图片链接给用户
-                alert('上传成功，图片链接：' + imageUrl);
-                // 更新
-                getImg(curryPath);
+                console.log(data, 'JSON数据')
             })
             .catch(error => {
+                popShow('上传失败');
                 console.error(error);
             });
     };
@@ -125,7 +121,8 @@ async function getShaForFile(filePath) {
         if (response.ok) {
             return response.json()
         } else {
-            console.error('获取文件 SHA 失败');
+            // popUp('获取文件 SHA 失败');
+            popShow('获取文件 SHA 失败');
             return null;
         }
     }).then(data => {
@@ -157,9 +154,11 @@ async function del(filePath) {
         });
 
         if (response.ok) {
-            console.log('文件删除成功');
+            // popUp('文件删除成功')
+            popShow('文件删除成功')
         } else {
-            console.error('文件删除失败');
+            // popUp('文件删除失败')
+            popShow('文件删除失败')
         }
     } else {
         console.log('SHA不存在')
@@ -184,9 +183,11 @@ async function delBySha(filePath, sha) {
     });
 
     if (response.ok) {
-        console.log('文件删除成功');
+        // popUp('文件删除成功');
+        popShow('文件删除成功')
     } else {
-        console.error('文件删除失败');
+        // popUp('文件删除失败');
+        popShow('文件删除失败')
     }
 }
 
@@ -394,5 +395,53 @@ function getImg(path) {
             imgShowEle.appendChild(fragment);
         })
 }
+
+/**
+ * 提示弹框
+ * author:zh1
+ * date:2023年10月25日
+ */
+function popUp(text) {
+    const popCon = document.createElement('div');
+    const popWin = document.createElement('div');
+    const popTitle = document.createElement('div');
+    const popText = document.createElement('div');
+
+    popCon.className = 'popUp-container';
+    popCon.id = 'popUp-container'
+    popCon.addEventListener('click', function (index) {
+        console.log(index, 'close')
+        index.target.remove();
+    });
+
+    popWin.className = 'popUp-container-window';
+
+    popTitle.className = 'popUp-container-window-title'
+    popTitle.textContent = '通知';
+
+    popText.className = 'popUp-container-window-text'
+    popText.textContent = text;
+
+    // popWin.textContent = 'test'; 
+    popCon.appendChild(popWin);
+    popWin.appendChild(popTitle);
+    popWin.appendChild(popText);
+    bodyEle[0].appendChild(popCon);
+
+    setTimeout(() => {
+        popCon.remove();
+    }, 3000);
+}
+// 隐藏版
+function popShow(text) {
+    let popText = document.getElementById('popUp-container-text');
+    let popCon = document.getElementById('popUp-container');
+    popCon.style.opacity = 1;
+    popText.textContent = text;
+    setTimeout(() => {
+        popCon.style.opacity = 0;
+    }, 2000);
+}
+
 
 go();

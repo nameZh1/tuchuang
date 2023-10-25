@@ -160,13 +160,15 @@ flex-basis：定义了一个项目的默认大小。通常是一个长度值，�
 .imgContainer-content-mid-imgShow-itemTitle {
     margin-top: 5px;
     background: #5d5d6194;
-    padding: 0px 15px;
+    padding: 2px 15px;
     border-radius: 5px;
     color: #ffffff71;
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: 600;
     transition: all .5s;
 }
 .imgContainer-content-mid-imgShow-itemImg {
+    border-radius: 20px;
     min-width: 80px;
     min-height: 80px;
     transition: all .5s;
@@ -190,4 +192,46 @@ flex-basis：定义了一个项目的默认大小。通常是一个长度值，�
 .imgContainer-content-mid-imgShow-itemQuit:hover {
     color: #fff;
     background-color: rgba(255, 53, 53, 0.801);
+}
+
+/* 弹框 */
+.popUp-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1b1b1b98;
+    /* 隐藏版就要击穿事件 */
+    pointer-events: none;
+    opacity: 0;
+}
+.popUp-container-window {
+    position: relative;
+    min-width: 300px;
+    min-height: 200px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    pointer-events: none;
+}
+.popUp-container-window-title {
+    position: absolute;
+    top: 0;
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.popUp-container-window-text {
+    position: absolute;
+    top: 80px;
+    font-size: 16px;
+    color: #494949d8;
+    font-weight: 600;
 }
