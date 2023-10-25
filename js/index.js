@@ -4,7 +4,22 @@
 // const tokenS = 'Z2l0aHViX3BhdF8xMUFLN1czRUkwVkZ1eGR6eXh2eDRNXzkzUFZ0UDBwTXFlUktqM1ozNm00Qk9xRHFwd2c3RVNtbHhjVmRXQnB6UGI2WVNVM1ZRNXBzQmg2TjN0';
 // const encoded = btoa(token);// 加密
 // const token = atob(tokenS);// 解码
-const token = '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'
+var url = "config.json"
+// 申明一个XMLHttpRequest
+var request = new XMLHttpRequest();
+// 设置请求方法与路径
+request.open("get", url);
+// 不发送数据到服务器
+request.send(null);
+//XHR对象获取到返回信息后执行
+request.onload = function () {
+    // 解析获取到的数据
+    var data = JSON.parse(request.responseText, 'aaa');
+    console.log(data)
+ 
+}
+
+// const token = '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'
 
 const repoOwner = 'nameZh1';//'YOUR_GITHUB_USERNAME';账户名
 const repoName = 'img';//'YOUR_REPOSITORY_NAME';仓库名
@@ -48,7 +63,7 @@ function add(pathDir) {
         console.log('请先选择要上传的图像文件'); // 如果没有选择文件，显示提示并终止操作
         return;
     }
-    if(pathDir == '/') {
+    if (pathDir == '/') {
         console.log('请先选择文件夹');
         return;
     }
@@ -154,25 +169,25 @@ async function del(filePath) {
 async function delBySha(filePath, sha) {
     console.log(filePath, sha, 'aaaaa')
     const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
-        const headers = {
-            'Authorization': `token ${token}`,
-            'Content-Type': 'application/json',
-        };
+    const headers = {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json',
+    };
 
-        const response = await fetch(apiUrl, {
-            method: 'DELETE',
-            headers,
-            body: JSON.stringify({
-                message: 'Delete file',
-                sha: sha.sha, // 提供 SHA
-            }),
-        });
+    const response = await fetch(apiUrl, {
+        method: 'DELETE',
+        headers,
+        body: JSON.stringify({
+            message: 'Delete file',
+            sha: sha.sha, // 提供 SHA
+        }),
+    });
 
-        if (response.ok) {
-            console.log('文件删除成功');
-        } else {
-            console.error('文件删除失败');
-        }
+    if (response.ok) {
+        console.log('文件删除成功');
+    } else {
+        console.error('文件删除失败');
+    }
 }
 
 
