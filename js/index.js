@@ -5,8 +5,6 @@
 // const encoded = btoa(token);// 加密
 // const token = atob(tokenS);// 解码
 
-const token = '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'
-
 const repoOwner = 'nameZh1';//'YOUR_GITHUB_USERNAME';账户名
 const repoName = 'img';//'YOUR_REPOSITORY_NAME';仓库名
 // 创建全局变量(当前所在路径)
@@ -16,6 +14,21 @@ const imageInput = document.getElementById('imageInput'); // 获取图像文件�
 const treeShowEle = document.getElementById('treeShow');
 const imgShowEle = document.getElementById('imgShow');
 const bodyEle = document.getElementsByTagName('body');
+var token;
+
+fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    body: JSON.stringify({
+        token: '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',
+    }),
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+    },
+}).then((response) => response.json()).then((json) => {
+    token = json.token;
+    console.log(token, '1111111')
+    go();
+});
 
 function go(index) {
     // add('img/icon');
@@ -78,26 +91,22 @@ function add(pathDir) {
                 content: content, // 使用Base64编码后的内容
                 branch: 'master', // 分支名称，通常为 'main' 或 'master'
             }),
-        })
-            .then(res => {
-                console.log(res, 'sss')
-                if (res.ok) {
-                    popShow('上传成功');
-                    return res.json()
-                }
-                if (res.status == 422) {
-                    popShow('上传失败,命名重复');
-                    return false;
-                }
-
-            }) // 解析响应的 JSON 数据
-            .then(data => {
-                console.log(data, 'JSON数据')
-            })
-            .catch(error => {
-                popShow('上传失败');
-                console.error(error);
-            });
+        }).then(res => {
+            console.log(res, 'sss')
+            if (res.ok) {
+                popShow('上传成功');
+                return res.json()
+            }
+            if (res.status == 422) {
+                popShow('上传失败,命名重复');
+                return false;
+            }
+        }).then(data => {
+            console.log(data, 'JSON数据')
+        }).catch(error => {
+            popShow('上传失败');
+            console.error(error);
+        });
     };
 }
 
@@ -444,4 +453,4 @@ function popShow(text) {
 }
 
 
-go();
+
