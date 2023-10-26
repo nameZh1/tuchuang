@@ -23,7 +23,6 @@ fetch('https://run.mocky.io/v3/5a1da7e9-baa6-48ae-ac73-71aed3b4c384', {
     },
 }).then((response) => response.json()).then((json) => {
     token = json.flag;
-    console.log(token, '1111111');
     go();
 });
 
