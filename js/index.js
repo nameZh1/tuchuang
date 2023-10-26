@@ -1,9 +1,9 @@
 // 获取 GitHub Actions 中设置的 Secret Token
 // const token = window.GITHUB_TOKEN;
 // const test = process.env.token;
-// const tokenS = 'Z2l0aHViX3BhdF8xMUFLN1czRUkwVkZ1eGR6eXh2eDRNXzkzUFZ0UDBwTXFlUktqM1ozNm00Qk9xRHFwd2c3RVNtbHhjVmRXQnB6UGI2WVNVM1ZRNXBzQmg2TjN0';
-// const encoded = btoa(token);// 加密
-// const token = atob(tokenS);// 解码
+
+// https://run.mocky.io/v3/5a1da7e9-baa6-48ae-ac73-71aed3b4c384
+// del https://designer.mocky.io/manage/delete/5a1da7e9-baa6-48ae-ac73-71aed3b4c384/jdaTGXsvFyxM8fKcrcM8J4lJFHOX1axM1OUB
 
 const repoOwner = 'nameZh1';//'YOUR_GITHUB_USERNAME';账户名
 const repoName = 'img';//'YOUR_REPOSITORY_NAME';仓库名
@@ -16,17 +16,14 @@ const imgShowEle = document.getElementById('imgShow');
 const bodyEle = document.getElementsByTagName('body');
 var token;
 
-fetch('https://jsonplaceholder.typicode.com/posts', {
+fetch('https://run.mocky.io/v3/5a1da7e9-baa6-48ae-ac73-71aed3b4c384', {
     method: 'POST',
-    body: JSON.stringify({
-        token: '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',
-    }),
     headers: {
         'Content-type': 'application/json; charset=UTF-8',
     },
 }).then((response) => response.json()).then((json) => {
-    token = json.token;
-    console.log(token, '1111111')
+    token = json.flag;
+    console.log(token, '1111111');
     go();
 });
 
