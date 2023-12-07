@@ -16,7 +16,7 @@ const imgShowEle = document.getElementById('imgShow');
 const bodyEle = document.getElementsByTagName('body');
 var token;
 
-fetch('https://run.mocky.io/v3/0a52f348-c11e-4402-a949-896a3c4aedba', {
+fetch('https://run.mocky.io/v3/02f62a32-b743-4b95-a29c-6ea12ec49abb', {
     method: 'POST',
     headers: {
         'Content-type': 'application/json; charset=UTF-8',
